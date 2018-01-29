@@ -359,12 +359,12 @@ open class AFMActionSheetController: UIViewController {
 
     // MARK: Event handling
 
-    func handleTaps(_ sender: UIControl) {
+    @objc func handleTaps(_ sender: UIControl) {
         let index = sender.tag
         let action = self.actions[index]
         if action.enabled {
             self.disableControls()
-            self.dismiss(animated: true, completion: { [unowned self] _ in
+            self.dismiss(animated: true, completion: { [unowned self] in
                 self.enableControls()
                 self.dismissCompletionBlock?()
                 action.handler?(action)
@@ -388,12 +388,12 @@ open class AFMActionSheetController: UIViewController {
         }
     }
 
-    func recognizeGestures(_ gestureRecognizer: UIGestureRecognizer) {
+    @objc func recognizeGestures(_ gestureRecognizer: UIGestureRecognizer) {
         let point = gestureRecognizer.location(in: self.view)
         let view = self.view.hitTest(point, with: nil)
         if (view == self.view && self.outsideGestureShouldDismiss) {
             self.disableControls()
-            self.dismiss(animated: true, completion: { [unowned self] _ in
+            self.dismiss(animated: true, completion: { [unowned self] in
                 self.enableControls()
                 self.dismissCompletionBlock?()
             })
